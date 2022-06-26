@@ -14,14 +14,16 @@
               </button>
             </div>
           </form>
+          <ng-template #errorTemplate>
+              <ng-container *ngIf="errorMessage">
+                <div class="text-danger">{{errorMessage}}</div>
+              </ng-container>
+          </ng-template>
           <ng-container *ngIf="accountObservable |async as accountDetails">
-            <div class="mb-2">
-              <label>Account iD :</label>
-              <label><Strong>{{accountDetails.accountId}}</Strong></label>
-            </div>
-            <div class="mb-2">
-              <label>Balance :</label>
-              <label><Strong>{{accountDetails.balance | number  : '1.2-2'}}</Strong></label>
+
+            <div class="card mt-2 mb-2">
+              <div class="card-header" style="text-align: center"><strong>ID:</strong> {{accountDetails.accountId}}</div>
+              <div class="card-header" style="text-align: center"><strong>Balance:</strong> {{accountDetails.balance| number : '1.2-2'}}</div>
             </div>
             <table class="table">
               <thead>
@@ -62,8 +64,8 @@
              <input class="form-check-input" type="radio" formControlName="operationType" value="TRANSFER">
              <label class="form-check-label">TRANSFER:</label>
            </div>
-           <div class="mb-3">
-             <label class="form-label" *ngIf="operationFormGroup.value.operationType=='TRANSFER'">Account Destination:</label>
+           <div class="mb-3" *ngIf="operationFormGroup.value.operationType=='TRANSFER'">
+             <label class="form-label">Account Destination :</label>
              <input type="text" formControlName="accountDestination" class="form-control">
            </div>
            <div class="mb-3">
